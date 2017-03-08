@@ -251,7 +251,10 @@ namespace qv_user_manager
 
                         // Iterate through all CAL's and remove the inactive ones
                         foreach (var c in metaData.Licensing.AssignedCALs.ToList().Where(u => u.LastUsed.Year > 0001 && u.LastUsed.CompareTo(DateTime.UtcNow.AddDays(days)) == -1))
+                        {
                             metaData.Licensing.AssignedCALs.Remove(c);
+                            metaData.Licensing.RemovedAssignedCALs.Add(c);
+                        }
 
                         // Save changes
                         backendClient.SaveDocumentMetaData(metaData);
